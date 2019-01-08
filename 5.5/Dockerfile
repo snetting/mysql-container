@@ -14,6 +14,7 @@ MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
 
 ENV MYSQL_VERSION=5.5 \
     HOME=/var/lib/mysql
+    LOCALE=en_US
 
 LABEL io.k8s.description="MySQL is a multi-user, multi-threaded SQL database server" \
       io.k8s.display-name="MySQL 5.5" \
@@ -30,6 +31,7 @@ RUN yum install -y centos-release-scl && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
+    localedef -f UTF-8 -i $LOCALE $LOCALE.UTF-8 && \
     mkdir -p /var/lib/mysql/data && chown -R mysql.0 /var/lib/mysql && \
     test "$(id mysql)" = "uid=27(mysql) gid=27(mysql) groups=27(mysql)"
 
@@ -44,6 +46,7 @@ ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql \
 ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable"
+    LC_ALL=$LOCALE.UTF-8
 
 ADD root /
 

@@ -13,6 +13,7 @@ FROM centos/s2i-core-centos7
 ENV MYSQL_VERSION=5.6 \
     APP_DATA=/opt/app-root/src \
     HOME=/var/lib/mysql
+    LOCALE=en_US
 
 ENV SUMMARY="MySQL 5.6 SQL database server" \
     DESCRIPTION="MySQL is a multi-user, multi-threaded SQL database server. The container \
@@ -43,6 +44,7 @@ RUN yum install -y yum-utils && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
+    localedef -f UTF-8 -i $LOCALE $LOCALE.UTF-8 && \
     mkdir -p /var/lib/mysql/data && chown -R mysql.0 /var/lib/mysql && \
     test "$(id mysql)" = "uid=27(mysql) gid=27(mysql) groups=27(mysql)"
 
@@ -57,6 +59,7 @@ ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql \
 ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable"
+    LC_ALL=$LOCALE.UTF-8
 
 COPY 5.6/root-common /
 COPY 5.6/s2i-common/bin/ $STI_SCRIPTS_PATH
