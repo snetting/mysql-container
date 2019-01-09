@@ -13,13 +13,13 @@ FROM centos/s2i-core-centos7
 ENV MYSQL_VERSION=5.7 \
     APP_DATA=/opt/app-root/src \
     HOME=/var/lib/mysql \
-    LOCALE=en_US
+    LOCALE=fi_FI
 
 ENV SUMMARY="MySQL 5.7 SQL database server" \
     DESCRIPTION="MySQL is a multi-user, multi-threaded SQL database server. The container \
 image provides a containerized packaging of the MySQL mysqld daemon and client application. \
 The mysqld server daemon accepts connections from clients and provides access to content from \
-MySQL databases on behalf of the clients."
+MySQL databases on behalf of the clients." 
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
