@@ -12,7 +12,7 @@ FROM centos/s2i-core-centos7
 
 ENV MYSQL_VERSION=8.0 \
     APP_DATA=/opt/app-root/src \
-    HOME=/var/lib/mysql
+    HOME=/var/lib/mysql \
     LOCALE=en_US
 
 ENV SUMMARY="MySQL 8.0 SQL database server" \
@@ -59,7 +59,7 @@ ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql \
 # the SCL for all scripts without need to do 'scl enable'.
 ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
-    PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable"
+    PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     LC_ALL=$LOCALE.UTF-8    
 
 COPY 8.0/root-common /

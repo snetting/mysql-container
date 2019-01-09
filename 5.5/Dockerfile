@@ -13,7 +13,7 @@ FROM centos:centos7
 MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
 
 ENV MYSQL_VERSION=5.5 \
-    HOME=/var/lib/mysql
+    HOME=/var/lib/mysql \
     LOCALE=en_US
 
 LABEL io.k8s.description="MySQL is a multi-user, multi-threaded SQL database server" \
@@ -45,7 +45,7 @@ ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql \
 # the SCL for all scripts without need to do 'scl enable'.
 ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
     ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
-    PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable"
+    PROMPT_COMMAND=". ${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     LC_ALL=$LOCALE.UTF-8
 
 ADD root /

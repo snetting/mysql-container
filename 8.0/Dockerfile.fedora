@@ -12,7 +12,8 @@ FROM registry.fedoraproject.org/f29/s2i-core:latest
 
 ENV MYSQL_VERSION=8.0 \
     APP_DATA=/opt/app-root/src \
-    HOME=/var/lib/mysql
+    HOME=/var/lib/mysql \
+    LOCALE=en_U
 
 ENV SUMMARY="MySQL 8.0 SQL database server" \
     DESCRIPTION="MySQL is a multi-user, multi-threaded SQL database server. The container \
@@ -48,6 +49,7 @@ RUN INSTALL_PKGS="rsync tar gettext hostname bind-utils groff-base shadow-utils 
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
+    localedef -f UTF-8 -i $LOCALE $LOCALE.UTF-8 && \
     mkdir -p /var/lib/mysql/data && chown -R mysql.0 /var/lib/mysql && \
     test "$(id mysql)" = "uid=27(mysql) gid=27(mysql) groups=27(mysql)"
 
